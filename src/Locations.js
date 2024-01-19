@@ -9,9 +9,9 @@ const Locations = ()=>{
     const [latitude,setLatitude] = useState(0)
     const [longitude,setLongitude] = useState(0)
     const [Hemisphere,setHemisphere] = useState("")
-    const [month,setMonth] = useState(new Date().getMonth()+1)
+    const [month,setMonth] = useState(()=>new Date().getMonth()+1)
 
-    function toFindLOcation(){
+    function toFindLocation(){
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(
                 (position)=>{
@@ -36,26 +36,25 @@ const Locations = ()=>{
             <p>latitude : {latitude}</p>
             <p>longitude:{longitude}</p>
             <p>Hemisphere:{Hemisphere}</p>
-            <p>Date:{month}</p>
-            <button onClick={toFindLOcation}>Location</button>
+            <p>Month:{month}</p>
+            <button onClick={toFindLocation}>Location</button>
             {
-                Hemisphere ?
-                (Hemisphere && ((Hemisphere == "Northern Hemisphere" && (month >= 11 || month <= 3)) || 
+                
+                (Hemisphere && ((Hemisphere === "Northern Hemisphere" && (month >= 11 || month <= 3)) || 
                 (Hemisphere == "Southern Hemisphere" && (month >= 5 || month <= 9)))
                 && (
                     <div>
                         <h1>Winter Season</h1>
                         <img src={Winter} alt="winter_img"/>
                     </div>
-                )):
-                (Hemisphere && (Hemisphere == "Northern Hemisphere" && ((month >= 5) || (month <= 9))) ||
-                (Hemisphere == "Southern Hemisphere" && ((month >= 11) || (month <= 3 )))
-                && (
-                    <div>
+                )) ||
+                (Hemisphere && ((Hemisphere == "Northern Hemisphere" && (month >= 5 || month <= 9)) ||
+                (Hemisphere == "Southern Hemisphere" && (month >= 11 || month <= 3) ))
+                && 
+                    (<div>
                         <h1>Summer Season</h1>
                         <img src={Summer} alt="Summer_img"/>
-                    </div>
-                ))
+                    </div>))
             }
         </div>
     )
