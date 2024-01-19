@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import Winter from "./images/Winter.jpg"
 import Summer from "./images/Summer.jpg"
 
@@ -29,6 +29,9 @@ const Locations = ()=>{
             
         }
     }
+    useEffect(()=>{
+       toFindLocation()
+    },[])
 
 
     return (
@@ -37,7 +40,7 @@ const Locations = ()=>{
             <p>longitude:{longitude}</p>
             <p>Hemisphere:{Hemisphere}</p>
             <p>Month:{month}</p>
-            <button onClick={toFindLocation}>Location</button>
+            {/*<button onClick={toFindLocation}>Location</button>*/}
             {
                 
                 (Hemisphere && ((Hemisphere === "Northern Hemisphere" && (month >= 11 || month <= 3)) || 
